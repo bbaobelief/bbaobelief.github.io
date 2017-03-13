@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %} {{ METANAME }} {% endblock %}
+{% block content %}
+{% if articles %}
+      <div class="header-clear"></div>
+      <div class="content">
+        <div class="blog-posts">
+
+
+
+          {% for article in articles_page.object_list %}
+          <div class="blog-post" style="margin-bottom:24px;">
+            <h3 class="blog-post-title"><a href="{{ SITEURL }}/{{ article.url }}" style="color:inherit">{{ article.title }}</a></h3>
+            <p class="blog-post-text">
+                {{ article.summary }}
+            </p>
+            <p class="blog-post-date" style="margin-top: 4px;">
+                <i class="fa fa-calendar"></i>{{ article.date|strftime('%d/%m/%Y') }}
+                <a href="{{ SITEURL }}/{{ article.category.url }}" style="margin-left: 10px;color:inherit" class="hide-if-mobile"><i class="fa fa-book"></i>{{ article.category }}</a>
+            </p>
+            <p class="blog-post-more" style="margin-top: 4px;"><a href="{{ SITEURL }}/{{ article.url }}">Read More<i class="fa fa-angle-right"></i></a></p>
+          </div>
+          <div class="decoration"></div>
+          {% endfor %} {# For article #}
+        </div>
+        {% include 'sidebar.html' %}
+        {% include 'partial/pagination.html' %}
+      </div>
+      <div class="decoration"></div>
+      {% include 'footer.html' %}
+{% else %} 
+      <div class="header-clear"></div>
+      <div class="content">
+        <div class="blog-posts">
+          <li>No Article Yet.</li>
+          <div class="decoration"></div>
+        </div>
+        {% include 'sidebar.html' %}
+      </div>
+      <div class="decoration"></div>
+      {% include 'footer.html' %}
+{% endif %} {# If articles #}
+          
+{% endblock %}

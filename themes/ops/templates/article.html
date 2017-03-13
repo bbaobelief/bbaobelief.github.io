@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block head %}
+    <meta name="keywords" content="{{ article.tags|join(', ')  }}">
+<style>
+/* toc*/
+#toc {
+  border: solid 1px rgba(0,0,0,.1);
+  border-radius: 7px;
+  margin: 1.1em 0 0 2em;
+  padding: 0.7em 0.7em 0 0.7em;
+  max-width: 40%; }
+
+.toc-title {
+  font-size: 120%; }
+
+#toc {
+  line-height: 1em;
+  float: right; }
+
+#toc li {
+  padding: 0;
+  margin: 0.5em;
+  //list-style-type: none;
+  line-height: 1.8em; }
+      
+#toc .toc-href {
+  //margin-left: 1em;
+  padding-left: 0; }
+
+#toc a {
+  color: inherit;
+}
+
+.target-fix {
+  position: relative;
+  padding-top: 50px;
+  margin-top: -50px;
+}
+
+.highlight pre {
+    counter-reset: linecounter;
+    padding-left: 1.5em;
+    /* border-left: 3px solid !important; */
+    /* border-left-color: #FF8000 !important; */
+    background: rgba(245, 245, 245, 0.25);
+    border: 1px solid #E8E8E8;
+    font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+}
+.highlight pre span.code-line {
+    counter-increment: linecounter;
+    padding-left: 1em;
+    text-indent: -1.5em;
+    display: inline-block;
+    margin-left: 6px;
+    border-left: 2px solid #BBE9BB;
+}
+.highlight pre span.code-line:before {
+    content: counter(linecounter);
+    padding-right: 1em;
+    display: inline-block;
+    color: grey;
+    text-align: right;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+// fix pastie
+.sd {
+    color: #718c00 !important;
+    background-color: #FFFFFF !important;
+}
+
+ul ul, ol ol {
+    -webkit-margin-before: 0px;
+    -webkit-margin-after: 0px;
+}
+
+ul ul, ol ul {
+    list-style-type: circle;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+</style>
+{% endblock %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+        <div class="header-clear"></div>
+        <div class="content">
+          <div class="blog-posts">
+            <!-- POST 1-->
+            <div class="blog-post">
+              <!-- <img src="images/pictures/3w.jpg" alt="img" class="responsive-image"> -->
+              <a class="back-button" href="{{ SITEURL }}"><i class="fa fa-chevron-left"></i> Back</a>
+              <h3 class="page-blog-title" style="margin-bottom:30px;">{{ article.title }}</h3>
+              <!-- <p class="blog-post-date"><i class="fa fa-calendar"></i>20/01/2015</p> -->
+              <!-- <strong class="page-blog-tags">In: <a href="#">Web Design, Mobile Templates, Blog</a></strong> --> 
+              <p>
+                <i class="fa fa-calendar" style="margin-right:10px"></i>{{ article.locale_date }}
+                <a href="' article.category.pk %}" style="margin-left: 10px;color:inherit"><i class="fa fa-book" style="margin-right:10px"></i>{{ article.category }}</a>
+                <span class="hide-if-mobile"><i class="fa fa-user" style="margin:0px 10px 0px 10px"></i>{{ article.author }}</span>
+              </p>
+              <div class="blog-post-text">
+
+<li id="comment-277" class="target-fix  comment-child comment-level-odd comment-even comment-by-author">
+              
+                {% if article.toc %}
+                    {{article.toc}}
+                {% endif %}
+
+                {{ article.content }}              
+                <div class="clear"></div>
+                <p class="blog-post-date hide-if-mobile">
+                    <i class="fa fa-tag" style="margin-right:2px;margin-top: 20px;">:</i>
+                    {% if article.tags %}
+                    {% for tag in article.tags %}
+                    <a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>{% if not loop.last %},{% endif %}
+                    {% else %}
+                    <a href="">Not tag.</a>
+                    {% endfor %}
+                    {% endif %}
+                </p>
+                <p class="blog-post-more hide-if-mobile" style="margin-top: 20px;">In:
+                    <a href="{{ SITEURL }}/{{ article.url }}">{{ SITEURL }}/{{ article.url }}</a>
+                </p>
+              </div>
+            </div>
+            <!-- <div class="decoration hide-if-mobile"></div> -->
+            
+            <div class="notification-page">
+            {#% include "duoshuo.html" %#}
+            </div>
+          </div>
+          {% include 'sidebar.html' %}
+        </div>
+        <div class="decoration"></div>
+        {% include 'footer.html' %}
+
+{% endblock %}
