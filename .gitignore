@@ -1,6 +1,7 @@
 output/
 *.pyc
 *.swp
+*.pid
 
 # Pycharm
 .idea/
