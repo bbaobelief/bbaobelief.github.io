@@ -28,6 +28,9 @@ DROPBOX_DIR=~/Dropbox/Public/
 GITHUB=git@github.com:bbaobelief/bbaobelief.github.io.git
 GITHUB_PAGES_BRANCH=master
 
+CODING=git@git.coding.net:bbaobelief/bbaobelief.coding.me.git
+CODING_PAGES_BRANCH=master
+
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
 	PELICANOPTS += -D
@@ -125,5 +128,9 @@ cf_upload: publish
 github: html
 	@git push -f $(GITHUB) develop:develop && echo "同步源码至github完成"
 	@cd $(OUTPUTDIR) && git init &&git add -A && git commit -m "生成网站静态页" && git push -f $(GITHUB) master:master && echo "同步静态页至github完成"	
+  
+coding: html
+	@git push -f $(CODING) develop:develop && echo "同步源码至coding完成"
+	@cd $(OUTPUTDIR) && git init &&git add -A && git commit -m "生成网站静态页" && git push -f $(CODING) master:master && echo "同步静态页至coding完成"	
 
 .PHONY: html help clean regenerate serve serve-global devserver stopserver publish ssh_upload rsync_upload dropbox_upload ftp_upload s3_upload cf_upload github
