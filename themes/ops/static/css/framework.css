@@ -3087,7 +3087,7 @@ table tr:hover td{
     border-radius:0px;
 }
 
-.login-logo{
+/* .login-logo{
     background-image:url(../images/logo.png);
     width:150px;
     height:25px;
@@ -3095,7 +3095,7 @@ table tr:hover td{
     margin-left:auto;
     margin-right:auto;
     margin-bottom:10px;
-}
+} */
 
 .login-page-wrapper p{
     color:rgba(255,255,255,0.7);

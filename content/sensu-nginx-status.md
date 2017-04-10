@@ -1,24 +1,14 @@
-Title: yum安装
-Date: 2013-03-03 10:15
-Category: Python
-Tags: pelican, publishing
-Slug: yum
-Author: crazygit
-Summary: hello
+Title: sensu插件nginx-status
+Date: 2015-12-20 09:37:19
+Category: Sensu
+Tags: Python, sensu, sensu-plugin
+Slug: sensu-nginx-status
 
-# Bg-yum安装
+#### 第一次写sensu的插件，暂作格式规范记录。
 
-{{>toc}}
-
-[TOC]
-
-* list
-    * sublist
-    * sublist
-* list
+> 地址：[https://github.com/sensu/sensu-plugin-python](https://github.com/sensu/sensu-plugin-python)
 
 ```
-:::python
 # -*- coding: utf-8 -*-
 
 import os
@@ -121,146 +111,4 @@ class NginxStatusMetrics(SensuPluginMetricGraphite):
 
 if __name__ == "__main__":
     NginxStatusMetrics()
-```
-
-
-### css
-
-```
-.highlight pre {
-    counter-reset: linecounter;
-    padding-left: 1.5em;
-    border-left: 3px solid !important;
-    border-left-color: #FF8000 !important;
-}
-.highlight pre span.code-line {
-    counter-increment: linecounter;
-    padding-left: 1em;
-    text-indent: -1em;
-    display: inline-block;
-}
-.highlight pre span.code-line:before {
-    content: counter(linecounter);
-    padding-right: 1em;
-    display: inline-block;
-    color: grey;
-    text-align: right;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-```
-
-Python test:
-
-    :::python
-    print("foo")
-
-    
-# ttttttttttttt
-    
-```python
-print("foo")
-```
-
-Inside a list:
-
-1. Here is some text. Let us try the ::: version of syntax highlighting.
-
-    Only four spaces to indent:
-
-    :::python
-    print("foo")
-
-    Using eight spaces to indent:
-    
-        :::python
-        print("foo")
-
-2. Now let us try the ``` version of syntax highlighting.
-
-    Only four spaces to indent:
-
-    ```python
-    print("foo")
-    ```
-
-    Using eight spaces to indent:
-
-        ```python
-        print("foo")
-        ```
-    
-End of test.
-
-
-###  bg-release安装
-```
-:::bash
-rpm -ivh http://repos.iduoku.cn/bg/centos/6/x86_64/bg-release-1.1-2.el6.noarch.rpm
-```
-
-### nginx安装
-```
-yum install bg-nginx111
-
-#如果没有nginx
-service nginx restart
-#重启
-service bg-nginx111 restart
-```
-
-### php安装
-```
-yum install bg-php52-php
-yum install bg-php53-php
-yum install bg-php56-php
-yum install bg-php70-php
-
-# 如果没有php
-service php-fpm restart
-# 重启
-service bg-php56-php-fpm restart
-```
-
-### jdk安装
-```
-yum install bg-jdk16
-yum install bg-jdk17
-yum install bg-jdk18
-```
-
-### resin安装【需要先安装jdk】
-```
-yum install bg-resin31-resin
-yum install bg-resin40-resin
-
-# 启动
-su - work
-cd /home/work/opt/bg-resin版本/bin/
-./httpd.sh start 或 resin.sh
-
-#测试
-curl -I http://127.0.0.1:8080/
-```
-
-### tomcat 安装
-```
-yum install bg-tomcat7-tomcat
-yum install bg-tomcat8-tomcat
-
-# 通用启动脚本
-/etc/init.d/bg-tomcat版本-tomcat start
-
-# 要想使用service方式启动，需要修改/etc/init.d/bg-tomcat8-tomcat 里的JAVA_HOME
-service bg-tomcat版本-tomcat start
-
-# 启动
-/home/work/opt/bg-tomcat7/bin/startup.sh
-#停止
-/home/work/opt/bg-tomcat7/bin/shutdown.sh
-#测试
-curl -I http://127.0.0.1:8080/
 ```

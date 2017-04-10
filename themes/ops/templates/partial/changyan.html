@@ -1,0 +1,37 @@
+              <style>
+              #SOHUCS #SOHU_MAIN .module-cmt-footer .section-service-w .service-wrap-w a {
+                display: none!important;
+              }
+              </style>
+              <!-- 打赏 -->
+              <div class="container switch-box hide-if-mobile">
+                  <!-- <a href="#" class="switch switch-1 switch-1-on" style="float: none!important; margin-left: 47%;"><span></span></a> -->
+                  <a href="#" class="switch switch-3" style="float: none!important; margin-left: 47%;"><span></span></a>
+                  <br/>
+                  <em class="switch-box-subtitle center-text" style="overflow: hidden; display: block;">
+                      <strong style="color: #F44336;">打赏！</strong>感谢你的支持，我会继续努力！
+                  </em>
+                  <div class="switch-box-content" style="overflow: hidden; display: none;">
+                    <div class="one-half">
+                        <h3 style="text-align: right; margin-right: 135px; margin-top: 10px;">微信</h3>
+                        <img src="/extra/images/dashang_weixin.png" class="float-right" alt="img" style="border: 1px dashed #ccc;">
+                    </div>
+                    <div class="two-half last-column">
+                        <h3 style="text-align: left; margin-left: 126px; margin-top: 10px;">支付宝</h3>
+                        <img src="/extra/images/dashang_zhifubao.png" class="float-left" alt="img" style="border: 1px dashed #ccc;">
+                    </div>
+                  </div>
+              </div>
+              <div class="decoration"></div>
+
+              {% if article.status != "draft" %}
+              <!-- 评论框 -->
+              <div id="SOHUCS" sid="{{ article.slug }}" ></div> 
+              <script type="text/javascript"> 
+              (function(){ 
+              var appid = '{{ CHANGYAN_APPID }}'; 
+              var conf = 'prod_a0733d78c88647278648b3b9aa94ac27'; 
+              var width = window.innerWidth || document.documentElement.clientWidth; 
+              if (width < 960) { 
+              window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+              {% endif %}

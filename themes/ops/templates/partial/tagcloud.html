@@ -1,0 +1,10 @@
+          
+                <div class="widget container hide-if-mobile">
+                  <h4>热门标签</h4>
+                  <div class="decoration"></div>
+                  <ul class="tag-clouds">
+                  {% for tag, articles in tags|sort %}
+                    <a href="/{{ tag.url }}" title="{{ tag }} ({{ articles|count }})">{{ tag|capitalize }}</a>
+                  {% endfor %}
+                  </ul>
+                </div>

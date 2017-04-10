@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}标签云{% endblock %}
+{% block content %}
+        <div class="header-clear"></div>
+        <div class="content">
+          <div class="blog-posts">
+            <!-- POST 1-->
+            <div class="blog-post">
+              <div class="blog-post-text">
+                <div class="widget container">
+                  <ul class="tag-clouds">
+                  {% for tag, articles in tags|sort %}
+                    <a href="/{{ tag.url }}" title="{{ tag }} ({{ articles|count }})">{{ tag|capitalize }}</a>
+                  {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="blog-sidebar">
+          {% include 'partial/search.html' %}
+          {% include 'partial/aboutme.html' %}
+          {% include 'partial/category.html' %}
+          </div>
+        </div>
+        <div class="decoration"></div>
+        {% include 'partial/footer.html' %}
+{% endblock %}

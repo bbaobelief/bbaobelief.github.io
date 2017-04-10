@@ -1,0 +1,12 @@
+
+                <div class="widget container hide-if-mobile">
+                  <h4>友情链接</h4>
+                  <div class="decoration"></div>
+                  <div class="one-third">
+                    <ul class="normal-list">
+                      {% for name, link in LINKS %}
+                      <li><a href="{{ link }}" title="{{ name }}" target="_blank" style="font-size: 14px;">{{ name }}</a></li>
+                      {% endfor %}
+                    </ul>
+                  </div>
+                </div>

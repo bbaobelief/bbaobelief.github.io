@@ -24,42 +24,58 @@
     <title>{% block title %}{% endblock %} &ndash; {{ SITENAME }}</title>
     
     <link href="/theme/css/style.css" rel="stylesheet" type="text/css" /> 
-    <link href="/theme/css/framework.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="/theme/css/framework.css" rel="stylesheet" type="text/css" /> 
     <link href="/theme/css/owl.theme.css" rel="stylesheet" type="text/css" /> 
     <link href="/theme/css/swipebox.css" rel="stylesheet" type="text/css" /> 
     <link href="/theme/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> 
     <link href="/theme/css/animate.min.css" rel="stylesheet" type="text/css" /> 
     <link href="/theme/css/pygments.css" rel="stylesheet" type="text/css" /> 
-<!--     <link href="{{ SITEURL }}/theme/tomorrow.css" rel="stylesheet" type="text/css" /> -->
+    {% block extra_css %}{% endblock %}
     
     <script type="text/javascript" src="/theme/js/jquery.js"></script> 
     <script type="text/javascript" src="/theme/js/jqueryui.js"></script> 
     <script type="text/javascript" src="/theme/js/framework.plugins.js"></script> 
     <script type="text/javascript" src="/theme/js/custom.js"></script>
-<!--     <script type="text/javascript" src="{{ SITEURL }}/theme/js/highlight.pack.js"></script> -->
-
-<!--     <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?a14887a9f31eeff5459d8cbbf3da3c4f";
-      var s = document.getElementsByTagName("script")[0]; 
-      s.parentNode.insertBefore(hm, s);
-    })();
-    </script>
-    <script>hljs.initHighlightingOnLoad();</script> -->
+    {% block extra_js %}{% endblock %}
+    
+    {% block extra_style %}{% endblock %}
     
     <style type="text/css">
-    .hljs {
-        color: #000;
+    .highlight pre {
+        display: block;
+        overflow-x: auto;
+        overflow: auto;
+        counter-reset: linecounter;
+        padding-left: 1.5em;
+        /* border-left: 3px solid !important; */
+        /* border-left-color: #FF8000 !important; */
         background: rgba(245, 245, 245, 0.25);
         border: 1px solid #E8E8E8;
         font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        padding-top: 10px;
     }
-    .hljs-keyword, .hljs-selector-tag {
-        color: #ff0055;
+    .highlight pre span.code-line {
+        counter-increment: linecounter;
+        padding-left: 1em;
+        text-indent: -1.5em;
+        display: inline-block;
+        margin-left: 6px;
+        border-left: 2px solid #BBE9BB;
     }
-
+    .highlight pre span.code-line:before {
+        content: counter(linecounter);
+        padding-right: 1em;
+        display: inline-block;
+        color: grey;
+        text-align: right;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
     blockquote {
         background:#f9f9f9;
         border-left:5px solid #ccc;
@@ -78,23 +94,50 @@
         display:inline;
     }
     </style>
+    
+    <!-- 百度统计 -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?{{ BAIDU_ANALYTICS }}";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+    <!-- 百度推送 -->
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
   </head> 
   <body> 
-    <div id="preloader"> 
-    <div id="status"> 
-        <p class="center-text"> 加载中... <em>加载速度取决于你的网速快慢!</em> </p> 
-    </div> 
-    </div> 
+<!--     <div id="preloader"> 
+      <div id="status"> 
+          <p class="center-text"> 加载中... <em>加载速度取决于你的网速快慢!</em> </p> 
+      </div> 
+    </div>  -->
     <div class="all-elements"> 
       <div class="snap-drawers"> 
         <!-- Left Sidebar --> 
         <div class="snap-drawer snap-drawer-left"> 
         <a href="/" class="selected-item"><i class="fa fa-home"></i>首页</a>
-        <a href="/blog/"><i class="fa fa-pencil"></i>博客</a> 
-        <a href="/charts/"><i class="fa fa-line-chart"></i>监控</a>
+        <a href="/"><i class="fa fa-pencil"></i>博客</a> 
+        <a href="/"><i class="fa fa-line-chart"></i>监控</a>
         <a href="/"><i class="fa fa-picture-o"></i>项目</a> 
-        <a href="/chat/"><i class="fa fa-comments-o"></i>聊天</a> 
-        <a href="/admin/"><i class="fa fa-cog"></i>管理</a>
+        <a href="/"><i class="fa fa-comments-o"></i>聊天</a> 
+        <a href="/"><i class="fa fa-cog"></i>管理</a>
         <!-- <a href="#"><i class="fa fa-facebook"></i>Like Us</a>  -->
         <!-- <a href="#"><i class="fa fa-twitter"></i>Follow Us</a>  -->
         <!-- <a href="#"><i class="fa fa-google-plus"></i>Follow us</a>  -->
@@ -133,6 +176,6 @@
         </div> 
         <a href="#" class="close-share-bottom">Close</a> 
       </div>  -->
-    </div>   
+    </div>
   </body>
 </html>

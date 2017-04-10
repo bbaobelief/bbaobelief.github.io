@@ -1,0 +1,14 @@
+               
+                <div class="widget container">
+                  <h4>文章分类</h4>
+                  <div class="decoration"></div>
+                  {% for category, articles in categories|sort %}
+                  <div class="one-half {{ loop.cycle('', 'last-column') }}">
+                    <ul class="blog-category">
+                      <li><a href="/{{ category.url }}"><i class="fa fa-angle-right"></i>{{ category|upper }}</a></li>
+                    </ul>
+                  </div>
+                  {% endfor %}
+                  <div class="clear"></div>
+                </div>
+                

@@ -12,10 +12,10 @@ FTP_HOST=localhost
 FTP_USER=anonymous
 FTP_TARGET_DIR=/
 
-SSH_HOST=localhost
+SSH_HOST=115.159.201.154
 SSH_PORT=22
 SSH_USER=root
-SSH_TARGET_DIR=/var/www
+SSH_TARGET_DIR=/data/www/blog
 
 S3_BUCKET=my_s3_bucket
 
@@ -126,7 +126,7 @@ cf_upload: publish
 	# git push origin $(GITHUB_PAGES_BRANCH)
   
 github: html
-	@git push -f $(GITHUB) develop:develop && echo "同步源码至github完成"
+	@git init && git add -A && git commit -m "生成网站静态页" && git push -f $(GITHUB) develop:develop && echo "同步源码至github完成"
 	@cd $(OUTPUTDIR) && git init &&git add -A && git commit -m "生成网站静态页" && git push -f $(GITHUB) master:master && echo "同步静态页至github完成"	
   
 coding: html
