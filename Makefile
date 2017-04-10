@@ -126,7 +126,7 @@ cf_upload: publish
 	# git push origin $(GITHUB_PAGES_BRANCH)
   
 github: html
-	@git init && git add -A && git commit -m "生成网站静态页" && git push -f $(GITHUB) develop:develop && echo "同步源码至github完成"
+	@git add -A && git commit -m "生成网站静态页" && git push -f $(GITHUB) develop:develop && echo "同步源码至github完成"
 	@cd $(OUTPUTDIR) && git init &&git add -A && git commit -m "生成网站静态页" && git push -f $(GITHUB) master:master && echo "同步静态页至github完成"	
   
 coding: html
