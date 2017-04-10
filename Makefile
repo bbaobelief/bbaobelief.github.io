@@ -130,7 +130,7 @@ github: html
 	@cd $(OUTPUTDIR) && git init &&git add -A && git commit -m "生成网站静态页" && git push -f $(GITHUB) master:master && echo "同步静态页至github完成"	
   
 coding: html
-	@git push -f $(CODING) develop:develop && echo "同步源码至coding完成"
+	@git add -A && git commit -m "生成网站静态页" && git push -f $(CODING) develop:develop && echo "同步源码至coding完成"
 	@cd $(OUTPUTDIR) && git init &&git add -A && git commit -m "生成网站静态页" && git push -f $(CODING) master:master && echo "同步静态页至coding完成"	
 
 .PHONY: html help clean regenerate serve serve-global devserver stopserver publish ssh_upload rsync_upload dropbox_upload ftp_upload s3_upload cf_upload github
