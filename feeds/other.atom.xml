@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Opdev.cn - Other</title><link href="http://www.opdev.cn/" rel="alternate"></link><link href="http://www.opdev.cn/feeds/other.atom.xml" rel="self"></link><id>http://www.opdev.cn/</id><updated>2014-08-20T09:37:19+08:00</updated><entry><title>Flex2 破解搜狐视频v5.0 去广告+美剧下载教程</title><link href="http://www.opdev.cn/other/ios-flex2.html" rel="alternate"></link><published>2014-08-20T09:37:19+08:00</published><updated>2014-08-20T09:37:19+08:00</updated><author><name>zheng</name></author><id>tag:www.opdev.cn,2014-08-20:/other/ios-flex2.html</id><summary type="html">&lt;p&gt;由于搜狐视频版权问题，现在不能离线观看美剧，且现在ios8.3系统暂时没有人上传flex2的搜狐视频破解补丁，于是自己做了个，仅作破解记录。&lt;/p&gt;
+&lt;h4&gt;一、确保ios已越狱且安装了flex2&lt;/h4&gt;
+&lt;hr&gt;
+&lt;h4&gt;二、去软件启动广告&lt;/h4&gt;
+&lt;p&gt;搜索 LaunchAdvertItem , 找到 -(BOOL)existLaunchAdvertImage 并将其的值修改为 FALSE 即可。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;三、去除视频广告 …&lt;/h4&gt;</summary><content type="html">&lt;p&gt;由于搜狐视频版权问题，现在不能离线观看美剧，且现在ios8.3系统暂时没有人上传flex2的搜狐视频破解补丁，于是自己做了个，仅作破解记录。&lt;/p&gt;
+&lt;h4&gt;一、确保ios已越狱且安装了flex2&lt;/h4&gt;
+&lt;hr&gt;
+&lt;h4&gt;二、去软件启动广告&lt;/h4&gt;
+&lt;p&gt;搜索 LaunchAdvertItem , 找到 -(BOOL)existLaunchAdvertImage 并将其的值修改为 FALSE 即可。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;三、去除视频广告&lt;/h4&gt;
+&lt;p&gt;搜索 STADPauseView , 找到 -(id)initWithFrame:(CGRect) , 将其值改为 (NULL) 。&lt;/p&gt;
+&lt;p&gt;搜索 ASAdvertPlayerViewController , 找到 -(id)advertInfo , 将其值改为 (NULL) 。&lt;/p&gt;
+&lt;hr&gt;
+&lt;h4&gt;四、去除美剧下载限制&lt;/h4&gt;
+&lt;p&gt;搜索 VideoBaseInfo， 将-(BOOL)isDownloadable 的值改为 TURE 。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;五、在flex2中启用补丁，现在就可以自由的无广告下载缓存美剧了。&lt;/p&gt;</content><category term="flex2"></category><category term="破解"></category></entry></feed>

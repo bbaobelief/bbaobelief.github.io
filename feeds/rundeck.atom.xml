@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Opdev.cn - Rundeck</title><link href="http://www.opdev.cn/" rel="alternate"></link><link href="http://www.opdev.cn/feeds/rundeck.atom.xml" rel="self"></link><id>http://www.opdev.cn/</id><updated>2016-05-17T18:37:19+08:00</updated><entry><title>rundeck整合LDAP登录</title><link href="http://www.opdev.cn/rundeck/rundeck-ldap.html" rel="alternate"></link><published>2016-05-17T18:37:19+08:00</published><updated>2016-05-17T18:37:19+08:00</updated><author><name>zheng</name></author><id>tag:www.opdev.cn,2016-05-17:/rundeck/rundeck-ldap.html</id><summary type="html">&lt;h4&gt;1.创建Active Directory组&lt;/h4&gt;
+&lt;p&gt;在Active Directory中创建一个新组，命名为“op。”然后添加用户，AD组。&lt;/p&gt;
+&lt;h4&gt;2. 创建jaas-activedirectory.conf文件&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;touch /etc/rundeck/jaas-activedirectory.conf&lt;/span&gt;
+&lt;span class="code-line"&gt;chown rundeck:rundeck …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</summary><content type="html">&lt;h4&gt;1.创建Active Directory组&lt;/h4&gt;
+&lt;p&gt;在Active Directory中创建一个新组，命名为“op。”然后添加用户，AD组。&lt;/p&gt;
+&lt;h4&gt;2. 创建jaas-activedirectory.conf文件&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;touch /etc/rundeck/jaas-activedirectory.conf&lt;/span&gt;
+&lt;span class="code-line"&gt;chown rundeck:rundeck /etc/rundeck/jaas-activedirectory.conf&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;vim /etc/rundeck/jaas-activedirectory.conf&lt;/p&gt;
+&lt;h5&gt;线上配置文件&lt;/h5&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;multiauth {&lt;/span&gt;
+&lt;span class="code-line"&gt;  com.dtolabs.rundeck.jetty.jaas.JettyCachingLdapLoginModule sufficient&lt;/span&gt;
+&lt;span class="code-line"&gt;    debug=&amp;quot;true&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    contextFactory=&amp;quot;com.sun.jndi.ldap.LdapCtxFactory&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    providerUrl=&amp;quot;ldap://IP:389&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    bindDn=&amp;quot;cn=administrator,cn=users,dc=baidu,dc=com&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    bindPassword=&amp;quot;密码&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    authenticationMethod=&amp;quot;simple&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    forceBindingLogin=&amp;quot;true&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    userBaseDn=&amp;quot;ou=baidu,dc=baidu,dc=com&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    userRdnAttribute=&amp;quot;sAMAccountName&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    userIdAttribute=&amp;quot;sAMAccountName&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    userPasswordAttribute=&amp;quot;unicodePwd&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    userObjectClass=&amp;quot;user&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    roleBaseDn=&amp;quot;ou=linux,dc=baidu,dc=com&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    roleNameAttribute=&amp;quot;cn&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    roleMemberAttribute=&amp;quot;member&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    roleObjectClass=&amp;quot;group&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    cacheDurationMillis=&amp;quot;300000&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    nestedGroups=true&lt;/span&gt;
+&lt;span class="code-line"&gt;    reportStatistics=&amp;quot;true&amp;quot;;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  org.eclipse.jetty.plus.jaas.spi.PropertyFileLoginModule required&lt;/span&gt;
+&lt;span class="code-line"&gt;    debug=&amp;quot;true&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;    file=&amp;quot;/etc/rundeck/realm.properties&amp;quot;;&lt;/span&gt;
+&lt;span class="code-line"&gt;};&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;3.修改/etc/rundeck/profile&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;cp /etc/rundeck/profile /etc/rundeck/profile.bak&lt;/span&gt;
+&lt;span class="code-line"&gt;vim /etc/rundeck/profile&lt;/span&gt;
+&lt;span class="code-line"&gt;export RDECK_JVM=&amp;quot;-Djava.security.auth.login.config=/etc/rundeck/jaas-activedirectory.conf \&lt;/span&gt;
+&lt;span class="code-line"&gt;    -Dloginmodule.name=multiauth&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;4.创建ACL op.aclpolicy&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;/var/lib/rundeck/exp/webapp/WEB-INF/web.xml&lt;/span&gt;
+&lt;span class="code-line"&gt;+        &lt;span class="nt"&gt;&amp;lt;security-role&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;+                &lt;span class="nt"&gt;&amp;lt;role-name&amp;gt;&lt;/span&gt;op&lt;span class="nt"&gt;&amp;lt;/role-name&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;+       &lt;span class="nt"&gt;&amp;lt;/security-role&amp;gt;&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;touch /etc/rundeck/op.aclpolicy&lt;/span&gt;
+&lt;span class="code-line"&gt;chown rundeck.rundeck /etc/rundeck/op.aclpolicy&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;hr&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;OP&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;read&lt;/span&gt; &lt;span class="n"&gt;access&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;project&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;.*&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;equals&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;kind&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;job&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="n"&gt;allow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;refresh&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;equals&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;kind&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;node&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="n"&gt;allow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;refresh&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;job&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;allow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;kill&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;node&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;allow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;run&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;op&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="o"&gt;---&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;OP&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="n"&gt;Read&lt;/span&gt; &lt;span class="n"&gt;Access&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;context&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;application&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;rundeck&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="k"&gt;for&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;equals&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;kind&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;system&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="n"&gt;allow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;equals&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;kind&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;project&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="n"&gt;allow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;project&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="n"&gt;match&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;        &lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;.*&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;      &lt;span class="n"&gt;allow&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="n"&gt;read&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;by&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;  &lt;span class="n"&gt;group&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;op&amp;#39;&lt;/span&gt;&lt;span class="o"&gt;]&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</content><category term="rundeck"></category><category term="linux"></category><category term="ldap"></category></entry></feed>

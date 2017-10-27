@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Opdev.cn - Nosql</title><link href="http://www.opdev.cn/" rel="alternate"></link><link href="http://www.opdev.cn/feeds/nosql.atom.xml" rel="self"></link><id>http://www.opdev.cn/</id><updated>2015-10-22T11:17:19+08:00</updated><entry><title>mongo集群 导入导出json和csv</title><link href="http://www.opdev.cn/nosql/nosql-mongodb-json.html" rel="alternate"></link><published>2015-10-22T11:17:19+08:00</published><updated>2015-10-22T11:17:19+08:00</updated><author><name>zheng</name></author><id>tag:www.opdev.cn,2015-10-22:/nosql/nosql-mongodb-json.html</id><summary type="html">&lt;h4&gt;导出数据&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# mongodump -d test -o bak&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;导入数据&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# mongorestore -h 127.0.0.1 --port 30000 -d test  bak/test/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;导出集合为csv …&lt;/h4&gt;</summary><content type="html">&lt;h4&gt;导出数据&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# mongodump -d test -o bak&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;导入数据&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# mongorestore -h 127.0.0.1 --port 30000 -d test  bak/test/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;导出集合为csv&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# mongoexport -h 127.0.0.1 --port 30000 -d test -c districts --type=csv -o districts.csv -f _id,district_code,province,city,district&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;导出集合为json&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# mongoexport -h 127.0.0.1 --port 30000 -d test -c districts  -o districts.json&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;导入csv或者json&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# mongoimport -d test -c districts  --type=json --file=districts.json --upsert&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;备注：以上导出数据库 test  的集合 districts，并将数据以 csv 格式导出。&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;-h 表示主机IP或主机名; &lt;/li&gt;
+&lt;li&gt;-d 表示数据库名; &lt;/li&gt;
+&lt;li&gt;-c 表示集合名; &lt;/li&gt;
+&lt;li&gt;-f 表示所选集合的字段; &lt;/li&gt;
+&lt;li&gt;-o 表示导出的文件名 &lt;/li&gt;
+&lt;li&gt;--upsert 以新增的方式导入 &lt;/li&gt;
+&lt;li&gt;--headerline   仅适用于导入csv,tsv格式的数据，表示文件中的第一行作为数据头&lt;/li&gt;
+&lt;/ul&gt;</content><category term="Linux"></category><category term="nosql"></category><category term="mongodb"></category></entry></feed>
