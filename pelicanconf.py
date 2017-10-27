@@ -8,7 +8,7 @@ SITEURL = 'http://www.opdev.cn'
 AUTHOR = u'zheng'
 AUTHOR_QQ = u'773889242'
 AUTHOR_EMAIL = u'bbaobelief@163.com'
-ABOUT_ME_SUMMARY = u'90后，男，耳机发烧友，古典、新世纪、美剧迷。现就职于百度某公司，任运维开发工程师。'
+ABOUT_ME_SUMMARY = u'90后，男，耳机发烧友，古典、新世纪、美剧迷。现就职于某教育公司，任运维开发工程师。'
 
 PATH = 'content'
 
