@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0 minimal-ui" /> 
+    <meta name="apple-mobile-web-app-capable" content="yes" /> 
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" /> 
+    <meta name="author" content="zheng">
+    <meta name="description" content="Posts and writings by zheng">
+    <meta name="keywords" content="django, Python, nginx">
+    
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/theme/images/splash/splash-icon.png" /> 
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/theme/images/splash/splash-icon-big.png" /> 
+    <link rel="apple-touch-startup-image" href="/theme/images/splash/splash-screen.png" media="screen and (max-device-width: 320px)" /> 
+    <link rel="apple-touch-startup-image" href="/theme/images/splash/splash-screen@2x.png" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" /> 
+    <link rel="apple-touch-startup-image" href="/theme/images/splash/splash-screen-six.png" media="(device-width: 375px)" /> 
+    <link rel="apple-touch-startup-image" href="/theme/images/splash/splash-screen-six-plus.png" media="(device-width: 414px)" /> 
+    <link rel="apple-touch-startup-image" sizes="640x1096" href="/theme/images/splash/splash-screen@3x.png" /> 
+    <link rel="apple-touch-startup-image" sizes="1024x748" href="/theme/images/splash/splash-screen-ipad-landscape" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : landscape)" /> 
+    <link rel="apple-touch-startup-image" sizes="768x1004" href="/theme/images/splash/splash-screen-ipad-portrait.png" media="screen and (min-device-width : 481px) and (max-device-width : 1024px) and (orientation : portrait)" /> 
+    <link rel="apple-touch-startup-image" sizes="1536x2008" href="/theme/images/splash/splash-screen-ipad-portrait-retina.png" media="(device-width: 768px)	and (orientation: portrait)	and (-webkit-device-pixel-ratio: 2)" /> 
+    <link rel="apple-touch-startup-image" sizes="1496x2048" href="/theme/images/splash/splash-screen-ipad-landscape-retina.png" media="(device-width: 768px)	and (orientation: landscape)	and (-webkit-device-pixel-ratio: 2)" /> 
+    
+    <title>nginx+uwsgi部署 &ndash; Opdev.cn</title>
+    
+    <link href="/theme/css/style.css" rel="stylesheet" type="text/css" /> 
+    <link href="/theme/css/framework.css" rel="stylesheet" type="text/css" /> 
+    <link href="/theme/css/owl.theme.css" rel="stylesheet" type="text/css" /> 
+    <link href="/theme/css/swipebox.css" rel="stylesheet" type="text/css" /> 
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="/theme/css/animate.min.css" rel="stylesheet" type="text/css" /> 
+    <link href="/theme/css/pygments.css" rel="stylesheet" type="text/css" /> 
+    
+    <script type="text/javascript" src="/theme/js/jquery.js"></script> 
+    <script type="text/javascript" src="/theme/js/jqueryui.js"></script> 
+    <script type="text/javascript" src="/theme/js/framework.plugins.js"></script> 
+    <script type="text/javascript" src="/theme/js/custom.js"></script>
+    
+    <style type="text/css">
+    /* toc*/
+    #toc {
+      border: solid 1px rgba(0,0,0,.1);
+      border-radius: 7px;
+      margin: 1.1em 0 0 2em;
+      padding: 0.7em 0.7em 0 0.7em;
+      max-width: 40%; }
+
+    .toc-title {
+      font-size: 120%; }
+
+    #toc {
+      line-height: 1em;
+      float: right; }
+
+    #toc li {
+      padding: 0;
+      margin: 0.5em;
+      //list-style-type: none;
+      line-height: 1.8em; }
+          
+    #toc .toc-href {
+      //margin-left: 1em;
+      padding-left: 0; }
+
+    #toc a {
+      color: inherit;
+    }
+
+    // fix pastie
+    .sd {
+        color: #718c00 !important;
+        background-color: #FFFFFF !important;
+    }
+    </style>
+    
+    <style type="text/css">
+    .highlight pre {
+        display: block;
+        overflow-x: auto;
+        overflow: auto;
+        counter-reset: linecounter;
+        padding-left: 1.5em;
+        /* border-left: 3px solid !important; */
+        /* border-left-color: #FF8000 !important; */
+        background: rgba(245, 245, 245, 0.25);
+        border: 1px solid #E8E8E8;
+        font-family: Menlo, 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monaco, Consolas, monospace;
+        margin-bottom: 10px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+    }
+    .highlight pre span.code-line {
+        counter-increment: linecounter;
+        padding-left: 1em;
+        text-indent: -1.5em;
+        display: inline-block;
+        margin-left: 6px;
+        border-left: 2px solid #BBE9BB;
+    }
+    .highlight pre span.code-line:before {
+        content: counter(linecounter);
+        padding-right: 1em;
+        display: inline-block;
+        color: grey;
+        text-align: right;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    blockquote {
+        background:#f9f9f9;
+        border-left:5px solid #ccc;
+        margin:1.5em 10px;
+        padding:.5em 10px;
+    }
+    blockquote:before {
+        color:#ccc;
+        content:open-quote;
+        font-size:4em;
+        line-height:.1em;
+        margin-right:.25em;
+        vertical-align:-.4em;
+    }
+    blockquote p {
+        display:inline;
+    }
+    </style>
+    
+    <!-- 百度统计 -->
+    <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?a14887a9f31eeff5459d8cbbf3da3c4f";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+    
+    <!-- 百度推送 -->
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
+  </head> 
+  <body> 
+<!--     <div id="preloader"> 
+      <div id="status"> 
+          <p class="center-text"> 加载中... <em>加载速度取决于你的网速快慢!</em> </p> 
+      </div> 
+    </div>  -->
+    <div class="all-elements"> 
+      <div class="snap-drawers"> 
+        <!-- Left Sidebar --> 
+        <div class="snap-drawer snap-drawer-left"> 
+        <a href="/" class="selected-item"><i class="fa fa-home"></i>首页</a>
+        <a href="/"><i class="fa fa-pencil"></i>博客</a> 
+        <a href="/"><i class="fa fa-line-chart"></i>监控</a>
+        <a href="/"><i class="fa fa-picture-o"></i>项目</a> 
+        <a href="/"><i class="fa fa-comments-o"></i>聊天</a> 
+        <a href="/"><i class="fa fa-cog"></i>管理</a>
+        <!-- <a href="#"><i class="fa fa-facebook"></i>Like Us</a>  -->
+        <!-- <a href="#"><i class="fa fa-twitter"></i>Follow Us</a>  -->
+        <!-- <a href="#"><i class="fa fa-google-plus"></i>Follow us</a>  -->
+        <a href="#" class="show-share-bottom"><i class="fa fa-retweet"></i>分享</a> 
+        <a href="#" class="sidebar-close"><i class="fa fa-times"></i>取消</a> 
+        </div> 
+      </div> 
+      <div class="header"> 
+        <a href="/" class="main-logo" style="color: #212121; font-size: 20px; font-weight: bold; background-image:none;">OPDEV.CN</a> 
+        <a href="" class="open-menu"><i class="fa fa-navicon"></i></a>
+        <a href="/archives.html" class="open-mail"><i class="fa fa-heart-o"></i></a>
+        <!--<a href="http://music.163.com/#/user/home?id=28713732" class="open-call" target="_blank"><i class="fa fa-music"></i></a>  -->
+        <a href="https://github.com/bbaobelief" class="open-call" target="_blank"><i class="fa fa-github-alt"></i></a>
+        <a href="#" onClick="JavaScript :history.back(1);" class="open-call" ><i class="fa fa-chevron-left"></i></a>
+      </div> 
+      <a href="#" class="footer-ball"><i class="fa fa-navicon"></i></a> 
+      <!-- Page Content-->
+      <div id="content" class="snap-content">
+      <!-- Main content -->
+        <div class="header-clear"></div>
+        <div class="content">
+          <div class="blog-posts">
+            <!-- POST 1-->
+            <div class="blog-post">
+              <a class="back-button" href="/"><i class="fa fa-chevron-left"></i> Back</a>
+              <h3 class="page-blog-title" style="margin-bottom:30px;">nginx+uwsgi部署</h3>
+              <p>
+                <i class="fa fa-calendar" style="margin-right:10px"></i>2015-08-12 12:30:00
+                <a href="/category/linux.html" style="margin-left: 10px;color:inherit"><i class="fa fa-book" style="margin-right:10px"></i>Linux</a>
+                <span class="hide-if-mobile"><i class="fa fa-user" style="margin:0px 10px 0px 10px"></i>zheng</span>
+              </p>
+              <div class="blog-post-text">
+                <h4>1. 安装必要的开发包</h4>
+<div class="highlight"><pre><span class="code-line"><span></span>#  yum install python-devel libxml2-devel python-setuptools zlib-devel wget pcre-devel gcc make</span>
+</pre></div>
+
+
+<h4>2. 安装nginx</h4>
+<div class="highlight"><pre><span class="code-line"><span></span># useradd www</span>
+<span class="code-line"># wget http://nginx.org/download/nginx-1.6.1.tar.gz</span>
+<span class="code-line">#  ./configure --user=www --group=www \</span>
+<span class="code-line">--prefix=/usr/local/nginx \</span>
+<span class="code-line">--with-http_stub_status_module \</span>
+<span class="code-line">--with-http_gzip_static_module</span>
+<span class="code-line">//此处在本环节只需指定一个路径</span>
+<span class="code-line"># make &amp;&amp; make install</span>
+<span class="code-line"># /usr/local/nginx/sbin/nginx      //启Nginx</span>
+</pre></div>
+
+
+<h4>3.安装uwsgi</h4>
+<div class="highlight"><pre><span class="code-line"><span></span># wget http://projects.unbit.it/downloads/uwsgi-2.0.6.tar.gz</span>
+<span class="code-line"># tar -zxvf uwsgi-2.6.tar.gz </span>
+<span class="code-line"># cd uwsgi-2.6.tar.gz </span>
+<span class="code-line"># python setup.py build </span>
+<span class="code-line"># make </span>
+<span class="code-line"># mv uwsgi /usr/bin/           //将编译好的文件移动到此处</span>
+</pre></div>
+
+
+<h4>4.测试uwsgi</h4>
+<p>在你的机器上写一个test.py</p>
+<div class="highlight"><pre><span class="code-line"><span></span>def application(env, start_response):</span>
+<span class="code-line">        start_response(&#39;200 OK&#39;, [(&#39;Content-Type&#39;,&#39;text/html&#39;)])</span>
+<span class="code-line">        return &quot;Hello World&quot;</span>
+</pre></div>
+
+
+<p>然后执行shell命令：</p>
+<div class="highlight"><pre><span class="code-line"><span></span># uwsgi --http :9000 --wsgi-file test.py    #注意--http :9000之间有空格</span>
+</pre></div>
+
+
+<p>访问网页：</p>
+<p>http://127.0.0.1:9001/</p>
+<p>看在网页上是否有Hello World</p>
+<h4>5.配置nginx</h4>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="nt">vim</span> <span class="o">/</span><span class="nt">usr</span><span class="o">/</span><span class="nt">local</span><span class="o">/</span><span class="nt">nginx</span><span class="o">/</span><span class="nt">conf</span><span class="o">/</span><span class="nt">nginx</span><span class="p">.</span><span class="nc">conf</span> </span>
+<span class="code-line"></span>
+<span class="code-line">    <span class="nt">server</span> <span class="p">{</span></span>
+<span class="code-line">        <span class="err">listen</span> <span class="err">80</span><span class="p">;</span></span>
+<span class="code-line">        <span class="err">server_name</span> <span class="err">localhost</span><span class="p">;</span></span>
+<span class="code-line">        <span class="err">#charset</span> <span class="err">koi8-r</span><span class="p">;</span></span>
+<span class="code-line">        <span class="err">access_log</span> <span class="err">logs/access.log</span><span class="p">;</span></span>
+<span class="code-line">        <span class="err">error_log</span> <span class="err">logs/error.log</span><span class="p">;</span></span>
+<span class="code-line">        <span class="err">location</span> <span class="err">/</span> <span class="err">{</span></span>
+<span class="code-line">            <span class="err">uwsgi_pass</span> <span class="err">127.0.0.1:9001</span><span class="p">;</span></span>
+<span class="code-line">            <span class="err">include</span> <span class="err">uwsgi_params</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="p">#</span><span class="nn">error_page</span> <span class="nt">404</span> <span class="o">/</span><span class="nt">404</span><span class="p">.</span><span class="nc">html</span><span class="o">;</span></span>
+<span class="code-line">        <span class="err">#</span> <span class="nt">redirect</span> <span class="nt">server</span> <span class="nt">error</span> <span class="nt">pages</span> <span class="nt">to</span> <span class="nt">the</span> <span class="nt">static</span> <span class="nt">page</span> <span class="o">/</span><span class="nt">50x</span><span class="p">.</span><span class="nc">html</span></span>
+<span class="code-line">        <span class="err">#</span></span>
+<span class="code-line">        <span class="nt">error_page</span> <span class="nt">500</span> <span class="nt">502</span> <span class="nt">503</span> <span class="nt">504</span> <span class="o">/</span><span class="nt">50x</span><span class="p">.</span><span class="nc">html</span><span class="o">;</span></span>
+<span class="code-line">        <span class="nt">location</span> <span class="o">=</span> <span class="o">/</span><span class="nt">50x</span><span class="p">.</span><span class="nc">html</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="err">root</span> <span class="err">html</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="nt">location</span> <span class="o">/</span><span class="nt">static</span><span class="o">/</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="err">alias</span> <span class="err">/data/www/django/mysite/aceadmin/static/</span><span class="p">;</span></span>
+<span class="code-line">            <span class="err">index</span> <span class="err">index.html</span> <span class="err">index.htm</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">        <span class="nt">location</span> <span class="o">/</span><span class="nt">media</span><span class="o">/</span> <span class="p">{</span></span>
+<span class="code-line">            <span class="err">alias</span> <span class="err">/data/www/django/mysite/aceadmin/media/</span><span class="p">;</span></span>
+<span class="code-line">        <span class="p">}</span></span>
+<span class="code-line">    <span class="err">}</span></span>
+</pre></div>
+
+
+<h4>6.配置django</h4>
+<blockquote>
+<p>NOTE：请保证你的django项目是正常使用的。可以使用</p>
+</blockquote>
+<div class="highlight"><pre><span class="code-line"><span></span>python manage.py runserver 0.0.0.0:8002</span>
+</pre></div>
+
+
+<p>来测试一下你的django项目是否能正常跑起来。</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="c1"># cat django_wsgi.py</span></span>
+<span class="code-line"><span class="c1">#!/usr/bin/env python</span></span>
+<span class="code-line"><span class="c1"># coding: utf-8</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">os</span></span>
+<span class="code-line"><span class="kn">import</span> <span class="nn">sys</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1"># 将系统的编码设置为UTF8</span></span>
+<span class="code-line"><span class="c1">#reload(sys)</span></span>
+<span class="code-line"><span class="c1">#sys.setdefaultencoding(&#39;utf8&#39;)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="c1">#注意：&quot;mysite.settings&quot; 和项目文件夹对应。</span></span>
+<span class="code-line"><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">&quot;DJANGO_SETTINGS_MODULE&quot;</span><span class="p">,</span> <span class="s2">&quot;myblog.settings&quot;</span><span class="p">)</span></span>
+<span class="code-line"></span>
+<span class="code-line"><span class="kn">from</span> <span class="nn">django.core.wsgi</span> <span class="kn">import</span> <span class="n">get_wsgi_application</span> </span>
+<span class="code-line"><span class="n">application</span> <span class="o">=</span> <span class="n">get_wsgi_application</span><span class="p">()</span></span>
+<span class="code-line"><span class="err">连接</span><span class="n">django</span><span class="err">和</span><span class="n">uwsgi</span><span class="err">，实现简单的</span><span class="n">WEB</span><span class="err">服务器。</span></span>
+</pre></div>
+
+
+<p>然后，就可以执行以下命令：</p>
+<div class="highlight"><pre><span class="code-line"><span></span># uwsgi --http :9001 --chdir /data/www/django/mysite --module django_wsgi</span>
+</pre></div>
+
+
+<p>这样，你就可以在浏览器中访问你的Django程序了。所有的请求都是经过uwsgi传递给Django程序的。</p>
+<h4>7.配置uWSGI</h4>
+<p>新建一个XML文件：</p>
+<p>vim uwsgi.xml，将它放在 mysite 目录下：</p>
+<div class="highlight"><pre><span class="code-line"><span></span><span class="nt">&lt;uwsgi&gt;</span></span>
+<span class="code-line">    <span class="nt">&lt;socket&gt;</span>127.0.0.1:9001<span class="nt">&lt;/socket&gt;</span> <span class="c">&lt;!-- 和nginx中定义的要一致 --&gt;</span></span>
+<span class="code-line">    <span class="nt">&lt;chdir&gt;</span>/data/django/myblog<span class="nt">&lt;/chdir&gt;</span>      <span class="c">&lt;!-- 你django的项目目录 --&gt;</span></span>
+<span class="code-line">    <span class="nt">&lt;module&gt;</span>django_wsgi<span class="nt">&lt;/module&gt;</span> <span class="c">&lt;!-- 名称为刚才上面定义的py文件名 --&gt;</span></span>
+<span class="code-line">    <span class="nt">&lt;processes&gt;</span>4<span class="nt">&lt;/processes&gt;</span> <span class="c">&lt;!-- 进程数 --&gt;</span></span>
+<span class="code-line">    <span class="nt">&lt;daemonize&gt;</span>/data/django/myblog/log/uwsgi.log<span class="nt">&lt;/daemonize&gt;</span></span>
+<span class="code-line"><span class="nt">&lt;/uwsgi&gt;</span></span>
+</pre></div>
+
+
+<p>在上面的配置中，我们使用 uwsgi.log 来记录日志，开启4个进程来处理请求。</p>
+<p>这样，我们就配置好uWSGI了。</p>
+<p>启动uWSGI服务器</p>
+<div class="highlight"><pre><span class="code-line"><span></span># cd/data/www/django/mysite</span>
+<span class="code-line"># uwsgi -x uwsgi.xml</span>
+</pre></div>
+
+
+<p>在上面的设置后，可以让Nginx来处理静态文件(/static/ 和 /media/ ）。非静态文件请求Nginx会发给 socket 9001，然后让uWSGI来进行处理。</p>
+<h4>8.其他设置</h4>
+<p>a.关闭django调试模式
+DEBUG = False</p>
+<p>b.复制admin文件样式
+1. 修改settings.py中STATIC_ROOT为你的static静态文件的物理路径</p>
+<ol>
+<li>复制静态文件</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span></span># python manage.py collectstatic</span>
+</pre></div>
+
+
+<ol>
+<li>修改Nginx配置</li>
+</ol>
+<div class="highlight"><pre><span class="code-line"><span></span>location /static {</span>
+<span class="code-line">      root /home/user/www;</span>
+<span class="code-line">  }</span>
+</pre></div>
+
+
+<p>完成上面三步后，重新加载相应设置：</p>
+<p>重启uwsgi和nginx</p>              
+                <div class="clear"></div>
+                <p class="blog-post-date hide-if-mobile" style="width: 40%;">
+                    <i class="fa fa-tag" style="margin-right:2px;margin-top: 20px;">:</i>
+                    <a href="/tag/django.html">django</a>,                    <a href="/tag/python.html">Python</a>,                    <a href="/tag/nginx.html">nginx</a>                </p>
+                <p class="blog-post-more hide-if-mobile" style="margin-top: 20px;">In:
+                    <a href="/linux/uwsgi-nginx.html">http://www.opdev.cn/linux/uwsgi-nginx.html</a>
+                </p>
+              </div>
+            </div>
+            <div class="decoration"></div>
+            <div class="notification-page">
+              <style>
+              #SOHUCS #SOHU_MAIN .module-cmt-footer .section-service-w .service-wrap-w a {
+                display: none!important;
+              }
+              </style>
+              <!-- 打赏 -->
+              <div class="container switch-box hide-if-mobile">
+                  <!-- <a href="#" class="switch switch-1 switch-1-on" style="float: none!important; margin-left: 47%;"><span></span></a> -->
+                  <a href="#" class="switch switch-3" style="float: none!important; margin-left: 47%;"><span></span></a>
+                  <br/>
+                  <em class="switch-box-subtitle center-text" style="overflow: hidden; display: block;">
+                      <strong style="color: #F44336;">打赏！</strong>感谢你的支持，我会继续努力！
+                  </em>
+                  <div class="switch-box-content" style="overflow: hidden; display: none;">
+                    <div class="one-half">
+                        <h3 style="text-align: right; margin-right: 135px; margin-top: 10px;">微信</h3>
+                        <img src="/extra/images/dashang_weixin.png" class="float-right" alt="img" style="border: 1px dashed #ccc;">
+                    </div>
+                    <div class="two-half last-column">
+                        <h3 style="text-align: left; margin-left: 126px; margin-top: 10px;">支付宝</h3>
+                        <img src="/extra/images/dashang_zhifubao.png" class="float-left" alt="img" style="border: 1px dashed #ccc;">
+                    </div>
+                  </div>
+              </div>
+              <div class="decoration"></div>
+
+              <!-- 评论框 -->
+              <div id="SOHUCS" sid="uwsgi-nginx" ></div> 
+              <script type="text/javascript"> 
+              (function(){ 
+              var appid = 'cysUqW1oc'; 
+              var conf = 'prod_a0733d78c88647278648b3b9aa94ac27'; 
+              var width = window.innerWidth || document.documentElement.clientWidth; 
+              if (width < 960) { 
+              window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="http://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("http://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); </script>
+            </div>
+          </div>
+              <div class="blog-sidebar">
+
+                <div class="widget container hide-if-mobile">
+                  <h4 style="margin-bottom: 30px;">Looking for something?</h4>
+                  <form id="search" action="/search.html" onsubmit="return validateForm(this.elements['q'].value);">
+                    <input class="blog-search text" type="text" name="q" id="tipue_search_input" pattern=".{3,}" title="At least 3 characters" placeholder="Search here...">
+                  </form>
+                </div>
+                <div class="widget container hide-if-mobile">
+                  <h4>About.Me</h4>
+                  <div class="decoration"></div>
+                    <div class="container no-bottom">
+                       <p class="thumb-left no-bottom">
+                        <img src="/default.png" alt="img" style="margin-top: 0px;">
+                        <strong style="padding-top: 0px;">zheng</strong><br>
+                        <em>90后，男，耳机发烧友，古典、新世纪、美剧迷。现就职于某教育公司，任运维开发工程师。</em><br>
+                        <em class="contact-text" style="float: left;margin-right: 20px;"><i class="fa fa-qq"></i>QQ: 773889242</em>
+                        <em class="contact-mail" style="float: left;"><i class="fa fa-envelope"></i>Email: bbaobelief@163.com</em>
+                      </p>
+                    </div>
+                </div>               
+                <div class="widget container">
+                  <h4>文章分类</h4>
+                  <div class="decoration"></div>
+                  <div class="one-half ">
+                    <ul class="blog-category">
+                      <li><a href="/category/django.html"><i class="fa fa-angle-right"></i>DJANGO</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half last-column">
+                    <ul class="blog-category">
+                      <li><a href="/category/jenkins.html"><i class="fa fa-angle-right"></i>JENKINS</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half ">
+                    <ul class="blog-category">
+                      <li><a href="/category/linux.html"><i class="fa fa-angle-right"></i>LINUX</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half last-column">
+                    <ul class="blog-category">
+                      <li><a href="/category/nosql.html"><i class="fa fa-angle-right"></i>NOSQL</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half ">
+                    <ul class="blog-category">
+                      <li><a href="/category/other.html"><i class="fa fa-angle-right"></i>OTHER</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half last-column">
+                    <ul class="blog-category">
+                      <li><a href="/category/pelican.html"><i class="fa fa-angle-right"></i>PELICAN</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half ">
+                    <ul class="blog-category">
+                      <li><a href="/category/python.html"><i class="fa fa-angle-right"></i>PYTHON</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half last-column">
+                    <ul class="blog-category">
+                      <li><a href="/category/rundeck.html"><i class="fa fa-angle-right"></i>RUNDECK</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half ">
+                    <ul class="blog-category">
+                      <li><a href="/category/sensu.html"><i class="fa fa-angle-right"></i>SENSU</a></li>
+                    </ul>
+                  </div>
+                  <div class="one-half last-column">
+                    <ul class="blog-category">
+                      <li><a href="/category/web.html"><i class="fa fa-angle-right"></i>WEB</a></li>
+                    </ul>
+                  </div>
+                  <div class="clear"></div>
+                </div>
+                          
+                <div class="widget container hide-if-mobile">
+                  <h4>热门标签</h4>
+                  <div class="decoration"></div>
+                  <ul class="tag-clouds">
+                    <a href="/tag/bao-cuo.html" title="报错 (3)">报错</a>
+                    <a href="/tag/blog.html" title="blog (2)">Blog</a>
+                    <a href="/tag/celery.html" title="celery (1)">Celery</a>
+                    <a href="/tag/css.html" title="CSS (1)">Css</a>
+                    <a href="/tag/django.html" title="django (14)">Django</a>
+                    <a href="/tag/fartscrolljs.html" title="fartscroll.js (1)">Fartscroll.js</a>
+                    <a href="/tag/flex2.html" title="flex2 (1)">Flex2</a>
+                    <a href="/tag/git.html" title="git (1)">Git</a>
+                    <a href="/tag/htmlmo-ban.html" title="html模版 (2)">Html模版</a>
+                    <a href="/tag/javascript.html" title="javascript (1)">Javascript</a>
+                    <a href="/tag/jenkins.html" title="jenkins (1)">Jenkins</a>
+                    <a href="/tag/ldap.html" title="ldap (1)">Ldap</a>
+                    <a href="/tag/lightbox2.html" title="lightbox2 (1)">Lightbox2</a>
+                    <a href="/tag/linux.html" title="linux (6)">Linux</a>
+                    <a href="/tag/mongodb.html" title="mongodb (1)">Mongodb</a>
+                    <a href="/tag/mysql.html" title="mysql (1)">Mysql</a>
+                    <a href="/tag/nginx.html" title="nginx (2)">Nginx</a>
+                    <a href="/tag/nosql.html" title="nosql (2)">Nosql</a>
+                    <a href="/tag/pelican.html" title="pelican (1)">Pelican</a>
+                    <a href="/tag/pep8.html" title="PEP8 (1)">Pep8</a>
+                    <a href="/tag/po-jie.html" title="破解 (1)">破解</a>
+                    <a href="/tag/pptp.html" title="pptp (1)">Pptp</a>
+                    <a href="/tag/python.html" title="Python (19)">Python</a>
+                    <a href="/tag/redis.html" title="redis (1)">Redis</a>
+                    <a href="/tag/rundeck.html" title="rundeck (1)">Rundeck</a>
+                    <a href="/tag/sensu.html" title="sensu (2)">Sensu</a>
+                    <a href="/tag/sensu-plugin.html" title="sensu-plugin (2)">Sensu-plugin</a>
+                    <a href="/tag/ssh.html" title="ssh (1)">Ssh</a>
+                    <a href="/tag/toolbar.html" title="Toolbar (1)">Toolbar</a>
+                    <a href="/tag/vpn.html" title="vpn (1)">Vpn</a>
+                    <a href="/tag/websocket.html" title="websocket (1)">Websocket</a>
+                  </ul>
+                </div>
+                <div class="widget container hide-if-mobile">
+                  <h4>小鱼儿</h4>
+                  <div class="decoration"></div>
+                  <object type="application/x-shockwave-flash" style="outline:none;" data="/theme/swf/fish.swf?up_fishColor4=F440E2&up_backgroundImage=http://&up_backgroundColor=FFFFFF&up_fishColor3=10E629&up_fishColor6=61F440&up_fishColor2=F45540&up_fishColor5=F4F440&up_fishColor8=F45540&up_foodColor=FA0505&up_fishColor1=404CF4&up_fishColor9=F45540&up_numFish=5&up_fishName=Fish&up_fishColor7=F45540&up_fishColor10=F45540&" width="370" height="245">
+                    <param name="movie" value="/theme/swf/fish.swf?up_fishColor4=F440E2&up_backgroundImage=http://&up_backgroundColor=FFFFFF&up_fishColor3=10E629&up_fishColor6=61F440&up_fishColor2=F45540&up_fishColor5=F4F440&up_fishColor8=F45540&up_foodColor=FA0505&up_fishColor1=404CF4&up_fishColor9=F45540&up_numFish=5&up_fishName=Fish&up_fishColor7=F45540&up_fishColor10=F45540&"></param>
+                    <param name="AllowScriptAccess" value="always"></param>
+                    <param name="wmode" value="opaque"></param>
+                    <param name="scale" value="noscale"/>
+                    <param name="salign" value="tl"/>
+                  </object>
+                </div>
+                <div class="widget container hide-if-mobile">
+                  <h4>友情链接</h4>
+                  <div class="decoration"></div>
+                  <div class="one-third">
+                    <ul class="normal-list">
+                      <li><a href="http://www.opdev.cn/" title="运维开发" target="_blank" style="font-size: 14px;display: inline;">运维开发</a></li>
+                      <li><a href="http://www.fashao.me/" title="fashao.me" target="_blank" style="font-size: 14px;display: inline;">fashao.me</a></li>
+                      <li><a href="http://shoujiong.org" title="ShouJiong" target="_blank" style="font-size: 14px;display: inline;">ShouJiong</a></li>
+                      <li><a href="http://pengyao.org/" title="姚大师" target="_blank" style="font-size: 14px;display: inline;">姚大师</a></li>
+                      <li><a href="http://www.roddypy.com/" title="普拉多VX" target="_blank" style="font-size: 14px;display: inline;">普拉多VX</a></li>
+                      <li><a href="http://www.abuve.com/" title="阿布的博客" target="_blank" style="font-size: 14px;display: inline;">阿布的博客</a></li>
+                    </ul>
+                  </div>
+                </div>              </div>        </div>
+        <div class="decoration"></div>
+    
+      <div class="footer">
+        <p class="center-text">Copyright <i class="fa fa-copyright"></i>
+          2013 - 2017
+        <a href="/" style="color:inherit">Opdev.cn</a>. All rights reserved.</p>
+        <div class="footer-socials half-bottom">
+            <a href="https://github.com/bbaobelief" class="footer-facebook" target="_blank"><i class="fa fa-github"></i></a>
+            <a href="/feed.xml" class="footer-twitter" target="_blank"><i class="fa fa-rss"></i></a>
+            <a href="#" class="footer-transparent"></a>
+            <a href="/sitemap.xml" class="footer-share" target="_blank"><i class="fa fa-sitemap"></i></a>
+            <a href="#" class="footer-up"><i class="fa fa-angle-up"></i></a>
+        </div>
+      </div>      <!-- /.content -->
+      <!-- Page Footer-->
+      </div>
+<!--       <div class="share-bottom"> 
+        <h3>Share Page</h3> 
+        <div class="share-socials-bottom"> 
+        <a href=""> <i class="fa fa-facebook facebook-color"></i> Facebook </a> 
+        <a href=""> <i class="fa fa-weibo twitter-color"></i> Weibo </a> 
+        <a href=""> <i class="fa fa-google-plus google-color"></i> Google </a> 
+        <a href=""> <i class="fa fa-qq pinterest-color"></i> QQ </a> 
+        <a href="sms:"> <i class="fa fa-comment-o sms-color"></i> Text </a> 
+        <a href=""> <i class="fa fa-envelope-o mail-color"></i> Email </a> 
+        </div> 
+        <a href="#" class="close-share-bottom">Close</a> 
+      </div>  -->
+    </div>
+  </body>
+</html>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0"><channel><title>Opdev.cn - zheng</title><link>http://www.opdev.cn/</link><description></description><lastBuildDate>Fri, 24 Mar 2017 15:16:55 +0800</lastBuildDate><item><title>Pelican静态博客simblog v3.0</title><link>http://www.opdev.cn/pelican/pelican-simblog.html</link><description>&lt;h3&gt;缘由&lt;/h3&gt;
+&lt;p&gt;由于主机续费等问题，决定把博客迁移到Pelican。&lt;/p&gt;
+&lt;p&gt;主题是自己开发的，独一无二。&lt;/p&gt;
+&lt;h3&gt;重要更新：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;使用Pelican生成静态页面&lt;/li&gt;
+&lt;li&gt;重写了主题&lt;/li&gt;
+&lt;li&gt;托管于git&lt;/li&gt;
+&lt;li&gt;评论换为畅言&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3&gt;待完善功能:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;toc目录结构&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3&gt;更新&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;2017.03.24 初次上线部署&lt;/li&gt;
+&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Fri, 24 Mar 2017 15:16:55 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2017-03-24:/pelican/pelican-simblog.html</guid><category>pelican</category><category>blog</category></item><item><title>jenkins配置Git及ssh认证</title><link>http://www.opdev.cn/jenkins/jenkins-git-ssh.html</link><description>&lt;h4&gt;安装 “Git Plugin”插件&lt;/h4&gt;
+&lt;p&gt;点击系统管理-&amp;gt;管理插件 在"可选插件"Tab里找到 Git Plugin ，安装该插件， 装完后重启， 在“已安装”Tab可找到该插件&lt;/p&gt;
+&lt;h4&gt;Git路径设置&lt;/h4&gt;
+&lt;p&gt;系统管理-&amp;gt;系统设置-Git,配置git的路径和版本 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Thu, 23 Jun 2016 19:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2016-06-23:/jenkins/jenkins-git-ssh.html</guid><category>jenkins</category><category>git</category><category>ssh</category></item><item><title>rundeck整合LDAP登录</title><link>http://www.opdev.cn/rundeck/rundeck-ldap.html</link><description>&lt;h4&gt;1.创建Active Directory组&lt;/h4&gt;
+&lt;p&gt;在Active Directory中创建一个新组，命名为“op。”然后添加用户，AD组。&lt;/p&gt;
+&lt;h4&gt;2. 创建jaas-activedirectory.conf文件&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;touch /etc/rundeck/jaas-activedirectory.conf&lt;/span&gt;
+&lt;span class="code-line"&gt;chown rundeck:rundeck …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Tue, 17 May 2016 18:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2016-05-17:/rundeck/rundeck-ldap.html</guid><category>rundeck</category><category>linux</category><category>ldap</category></item><item><title>django-websocket-redis安装配置并支持中文</title><link>http://www.opdev.cn/django/django-websocket-redis.html</link><description>&lt;p&gt;1.安装redis&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;$ wget http://download.redis.io/releases/redis-3.0.7.tar.gz&lt;/span&gt;
+&lt;span class="code-line"&gt;$ tar xzf redis-3.0.7.tar.gz …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Fri, 08 Apr 2016 10:30:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2016-04-08:/django/django-websocket-redis.html</guid><category>django</category><category>Python</category><category>websocket</category></item><item><title>django博客simblog v2.0</title><link>http://www.opdev.cn/django/django-simblog2.html</link><description>&lt;h3&gt;重要更新：&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;更换了全新的模版；&lt;/li&gt;
+&lt;li&gt;保留了原主题（挺喜欢之前的主题，所以保留了原主题）；&lt;/li&gt;
+&lt;li&gt;使用Class View编写；&lt;/li&gt;
+&lt;li&gt;对代码格式及性能做了优化；&lt;/li&gt;
+&lt;li&gt;代码高亮更新问最新版的&lt;strong&gt;prettify&lt;/strong&gt;；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3&gt;待完善功能:&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;主机性能图形展示；&lt;/li&gt;
+&lt;li&gt;项目展示；&lt;/li&gt;
+&lt;li&gt;管理后台；&lt;/li&gt;
+&lt;li&gt;登录页；&lt;/li&gt;
+&lt;li&gt;403，404，502，500页面自定义；&lt;/li&gt;
+&lt;li&gt;RSS …&lt;/li&gt;&lt;/ul&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Sun, 17 Jan 2016 15:42:20 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2016-01-17:/django/django-simblog2.html</guid><category>django</category><category>Python</category><category>blog</category></item><item><title>Python编程规范(PEP8)</title><link>http://www.opdev.cn/python/python-pep8.html</link><description>&lt;p&gt;转载，原作者找不到了，官网规范：&lt;a href="https://www.python.org/dev/peps/pep-0008/"&gt;https://www.python.org/dev/peps/pep-0008/&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;代码布局&lt;/h3&gt;
+&lt;h4&gt;缩进&lt;/h4&gt;
+&lt;p&gt;对于每一次缩进使用4个空格。使用括号、中括号、大括号进行垂直对齐，或者缩进对齐。&lt;/p&gt;
+&lt;h4&gt;制表符还是空格?&lt;/h4&gt;
+&lt;p&gt;永远不要将制表符与空格混合使用。Python最常用的缩进方式是只是用空格 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Tue, 29 Dec 2015 11:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-12-29:/python/python-pep8.html</guid><category>Python</category><category>PEP8</category></item><item><title>sensu插件nginx-access</title><link>http://www.opdev.cn/sensu/sensu-nginx-access.html</link><description>&lt;p&gt;sensu日志分析插件。&lt;/p&gt;
+&lt;p&gt;nginx日志格式：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# -*- coding: utf-8 -*-&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;time&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;socket&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;hashlib&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;collections&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;defaultdict&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;sensu_plugin …&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Fri, 25 Dec 2015 10:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-12-25:/sensu/sensu-nginx-access.html</guid><category>Python</category><category>sensu</category><category>sensu-plugin</category></item><item><title>sensu插件nginx-status</title><link>http://www.opdev.cn/sensu/sensu-nginx-status.html</link><description>&lt;h4&gt;第一次写sensu的插件，暂作格式规范记录。&lt;/h4&gt;
+&lt;blockquote&gt;
+&lt;p&gt;地址：&lt;a href="https://github.com/sensu/sensu-plugin-python"&gt;https://github.com/sensu/sensu-plugin-python&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# -*- coding: utf-8 -*-&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;os&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;hashlib&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;socket&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;re&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;urllib2 …&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Sun, 20 Dec 2015 09:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-12-20:/sensu/sensu-nginx-status.html</guid><category>Python</category><category>sensu</category><category>sensu-plugin</category></item><item><title>Django1.8 安装Django-Debug-Toolbar</title><link>http://www.opdev.cn/django/django-debug-toolbar.html</link><description>&lt;h5&gt;网上很多资料都是django1.4下的，无法正常显示toolbar。&lt;/h5&gt;
+&lt;blockquote&gt;
+&lt;p&gt;地址：&lt;a href="https://github.com/django-debug-toolbar/django-debug-toolbar"&gt;https://github.com/django-debug-toolbar/django-debug-toolbar&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h4&gt;安装&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# pip install django-debug-toolbar&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;设置settings.py&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;INSTALLED_APPS = (&lt;/span&gt;
+&lt;span class="code-line"&gt;    &amp;#39;django.contrib.admin&amp;#39;,&lt;/span&gt;
+&lt;span class="code-line"&gt;    &amp;#39;django …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Sat, 28 Nov 2015 15:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-11-28:/django/django-debug-toolbar.html</guid><category>django</category><category>Python</category><category>Toolbar</category></item><item><title>lightbox2 图片放大浏览</title><link>http://www.opdev.cn/web/web-lightbox2.html</link><description>&lt;p&gt;一直想为博客增加个图片浏览功能，今天研究了半天终于弄好啦，效果还是挺满意的。&lt;/p&gt;
+&lt;p&gt;插件用的是lightbox2：&lt;a href="http://lokeshdhakar.com/projects/lightbox2/"&gt;http://lokeshdhakar.com/projects/lightbox2/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;看了下说明文档，这个插件是根据&lt;strong&gt;data-lightbox&lt;/strong&gt;属性来调用js的，但我的富文本编辑器默认不识别data-lightbox属性，保存之后会自动去掉，而且手动编辑加data-lightbox也很low。故在前端用js解决：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nt"&gt;&amp;lt;script&lt;/span&gt; &lt;span class="na"&gt;type=&lt;/span&gt;&lt;span class="s"&gt;&amp;quot;text …&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Sun, 25 Oct 2015 21:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-10-25:/web/web-lightbox2.html</guid><category>javascript</category><category>lightbox2</category></item><item><title>mongo集群 导入导出json和csv</title><link>http://www.opdev.cn/nosql/nosql-mongodb-json.html</link><description>&lt;h4&gt;导出数据&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# mongodump -d test -o bak&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;导入数据&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# mongorestore -h 127.0.0.1 --port 30000 -d test  bak/test/&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;导出集合为csv …&lt;/h4&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Thu, 22 Oct 2015 11:17:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-10-22:/nosql/nosql-mongodb-json.html</guid><category>Linux</category><category>nosql</category><category>mongodb</category></item><item><title>django 发送html模版渲染邮件</title><link>http://www.opdev.cn/django/django-html-mail.html</link><description>&lt;h4&gt;1.settings.py文件中添加配置：&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;# email config&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;EMAIL_HOST&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;smtp&lt;/span&gt;&lt;span class="mf"&gt;.163&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;EMAIL_HOST_USER&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="n"&gt;bbaobelief&lt;/span&gt;&lt;span class="mf"&gt;@163.&lt;/span&gt;&lt;span class="n"&gt;com&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;EMAIL_HOST_PASSWORD&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;span class="mi"&gt;123456&lt;/span&gt;&lt;span class="err"&gt;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;EMAIL_USE_TLS&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;True&lt;/span&gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;2.发送简单邮件：&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from …&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Thu, 15 Oct 2015 14:57:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-10-15:/django/django-html-mail.html</guid><category>django</category><category>Python</category><category>html模版</category></item><item><title>django+Celery+redis异步执行任务</title><link>http://www.opdev.cn/django/django-celery-redis.html</link><description>&lt;p&gt;关于celery介绍请自行百度&lt;/p&gt;
+&lt;h4&gt;1.安装Celery&lt;/h4&gt;
+&lt;p&gt;用pip或easy_install安装：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# pip install Celery django-celery celery-with-redis&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;2.安装redis&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# wget http://download.redis.io/releases/redis-3.0.3 …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Sat, 05 Sep 2015 13:27:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-09-05:/django/django-celery-redis.html</guid><category>django</category><category>Python</category><category>celery</category></item><item><title>nginx+uwsgi部署</title><link>http://www.opdev.cn/linux/uwsgi-nginx.html</link><description>&lt;h4&gt;1. 安装必要的开发包&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;#  yum install python-devel libxml2-devel python-setuptools zlib-devel wget pcre-devel gcc make&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;2. 安装nginx&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;# useradd www&lt;/span&gt;
+&lt;span class="code-line"&gt;# wget http://nginx.org …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Wed, 12 Aug 2015 12:30:00 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-08-12:/linux/uwsgi-nginx.html</guid><category>django</category><category>Python</category><category>nginx</category></item><item><title>duxcms 开启nginx伪静态</title><link>http://www.opdev.cn/django/duxcms-nginx.html</link><description>&lt;h4&gt;今天部署了duxcms，想用来做移动端文章展示用，对默认生成的文章url不胜满意，找了下官方的资料没发现nginx的伪静态规则，于是自己写了个。&lt;/h4&gt;
+&lt;p&gt;后台———系统———系统设置———性能设置———伪静态（开启）&lt;/p&gt;
+&lt;h4&gt;nginx加入伪静态规则&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;rewrite ^(.*)/article/([0-9]+).html$ $1/index.php?r …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Fri, 10 Jul 2015 01:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-07-10:/django/duxcms-nginx.html</guid><category>django</category><category>Python</category></item><item><title>django 自定义 forms widget属性</title><link>http://www.opdev.cn/django/django-forms-widget.html</link><description>&lt;h4&gt;models.py&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;Task&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="s1"&gt;&amp;#39;&amp;#39;&amp;#39;任务表&amp;#39;&amp;#39;&amp;#39;&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="nx"&gt;title&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;标题&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="nx"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="nx"&gt;description&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;TextField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;u&lt;/span&gt;&lt;span class="s1"&gt;&amp;#39;描述&amp;#39;&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="nx"&gt;creator …&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Sat, 27 Jun 2015 11:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-06-27:/django/django-forms-widget.html</guid><category>django</category><category>Python</category></item><item><title>django 报错.auditor: (fields.E304) Reverse accessor</title><link>http://www.opdev.cn/django/django-related_name.html</link><description>&lt;h4&gt;今天在设计models时，一张表用到了2个ManyToManyField字段，当同步数据库时报错如下：&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;ERRORS&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="n"&gt;workflow&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;Workorder&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;auditor&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="n"&gt;fields&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="na"&gt;E304&lt;/span&gt;&lt;span class="o"&gt;)&lt;/span&gt; &lt;span class="n"&gt;Reverse&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Workorder.auditor&amp;#39;&lt;/span&gt; &lt;span class="n"&gt;clashes&lt;/span&gt; &lt;span class="k"&gt;with&lt;/span&gt; &lt;span class="n"&gt;reverse&lt;/span&gt; &lt;span class="n"&gt;accessor&lt;/span&gt; &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="s1"&gt;&amp;#39;Workorder …&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Sat, 20 Jun 2015 01:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-06-20:/django/django-related_name.html</guid><category>django</category><category>Python</category><category>报错</category></item><item><title>Centos vps安装VPN</title><link>http://www.opdev.cn/linux/centos-vpn.html</link><description>&lt;h4&gt;一、首先检查你VPS的PPP和TUN有没有启用：&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;cat /dev/ppp   &lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;cat /dev/net/tun&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;显示结果为：&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;cat: /dev/ppp: No such device or address&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;cat: /dev …&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Mon, 20 Apr 2015 14:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-04-20:/linux/centos-vpn.html</guid><category>Linux</category><category>vpn</category><category>pptp</category></item><item><title>django 设置 数据库缓存</title><link>http://www.opdev.cn/django/django-cache.html</link><description>&lt;p&gt;最近博客增加了许多新功能，访问速度有所下降，故启用了django的数据库全站缓存。&lt;/p&gt;
+&lt;p&gt;Django 官方缓存系统介绍：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;https://docs.djangoproject.com/en/1.8/topics/cache/#database-caching&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;配置cache方式及内部实现机制：
+    django中cache大体分为三种，即针对全站的缓存配置、针对视图的缓存配置、针对数据的缓存配置 …&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Fri, 20 Mar 2015 10:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2015-03-20:/django/django-cache.html</guid><category>django</category><category>Python</category></item><item><title>Django 多对多查询</title><link>http://www.opdev.cn/django/django-m2m.html</link><description>&lt;h3&gt;表结构&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;Author&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="nx"&gt;name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;CharField&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;max_length&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;30&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="nx"&gt;email&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;EmailField&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;&lt;span class="kr"&gt;class&lt;/span&gt; &lt;span class="nx"&gt;Book&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Model&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;/span&gt;
+&lt;span class="code-line"&gt;    &lt;span class="nx"&gt;title&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;models&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;CharField …&lt;/span&gt;&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">zheng</dc:creator><pubDate>Thu, 27 Nov 2014 16:37:19 +0800</pubDate><guid isPermaLink="false">tag:www.opdev.cn,2014-11-27:/django/django-m2m.html</guid><category>django</category></item></channel></rss>
