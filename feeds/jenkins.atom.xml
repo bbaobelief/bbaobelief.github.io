@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Opdev.cn - Jenkins</title><link href="http://www.opdev.cn/" rel="alternate"></link><link href="http://www.opdev.cn/feeds/jenkins.atom.xml" rel="self"></link><id>http://www.opdev.cn/</id><updated>2016-06-23T19:37:19+08:00</updated><entry><title>jenkins配置Git及ssh认证</title><link href="http://www.opdev.cn/jenkins/jenkins-git-ssh.html" rel="alternate"></link><published>2016-06-23T19:37:19+08:00</published><updated>2016-06-23T19:37:19+08:00</updated><author><name>zheng</name></author><id>tag:www.opdev.cn,2016-06-23:/jenkins/jenkins-git-ssh.html</id><summary type="html">&lt;h4&gt;安装 “Git Plugin”插件&lt;/h4&gt;
+&lt;p&gt;点击系统管理-&amp;gt;管理插件 在"可选插件"Tab里找到 Git Plugin ，安装该插件， 装完后重启， 在“已安装”Tab可找到该插件&lt;/p&gt;
+&lt;h4&gt;Git路径设置&lt;/h4&gt;
+&lt;p&gt;系统管理-&amp;gt;系统设置-Git,配置git的路径和版本 …&lt;/p&gt;</summary><content type="html">&lt;h4&gt;安装 “Git Plugin”插件&lt;/h4&gt;
+&lt;p&gt;点击系统管理-&amp;gt;管理插件 在"可选插件"Tab里找到 Git Plugin ，安装该插件， 装完后重启， 在“已安装”Tab可找到该插件&lt;/p&gt;
+&lt;h4&gt;Git路径设置&lt;/h4&gt;
+&lt;p&gt;系统管理-&amp;gt;系统设置-Git,配置git的路径和版本（一般不需要配置，会自动识别到）&lt;/p&gt;
+&lt;h4&gt;认证设置&lt;/h4&gt;
+&lt;p&gt;首页-&amp;gt;Credentials-&amp;gt;Global credentials-&amp;gt;Add Credentials-&amp;gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Scope:Global&lt;/li&gt;
+&lt;li&gt;Username:jenkins (根据你的运行用户决定)&lt;/li&gt;
+&lt;li&gt;Private Key:From the Jenkins master ~/.ssh (注意，这里用到的是私钥)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4&gt;生成ssh keys&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="code-line"&gt;&lt;span&gt;&lt;/span&gt;ssh-keygen -t rsa -C &amp;quot;zhengfuqiang@test.com&amp;quot;&lt;/span&gt;
+&lt;span class="code-line"&gt;cat ~/.ssh/id_rsa.pub (添加到你的git里)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;h4&gt;新建任务&lt;/h4&gt;
+&lt;ul&gt;
+&lt;li&gt;源码管理-&amp;gt;Git&lt;/li&gt;
+&lt;li&gt;Repository URL:git的ssh地址&lt;/li&gt;
+&lt;li&gt;Credentials:jenkins (刚才创建的用户)&lt;/li&gt;
+&lt;/ul&gt;</content><category term="jenkins"></category><category term="git"></category><category term="ssh"></category></entry></feed>
